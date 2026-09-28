@@ -12,19 +12,19 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (_) => AppState()..init(),
-      child: const SecureChatApp(),
+      child: const AbChatApp(),
     ),
   );
 }
 
-class SecureChatApp extends StatelessWidget {
-  const SecureChatApp({super.key});
+class AbChatApp extends StatelessWidget {
+  const AbChatApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     final phase = context.select<AppState, Phase>((s) => s.phase);
     return MaterialApp(
-      title: 'SecureChat',
+      title: 'AB Chat',
       debugShowCheckedModeBanner: false,
       theme: buildTheme(),
       // Changing the key resets the navigator, so logging in/out never leaves stale screens behind.

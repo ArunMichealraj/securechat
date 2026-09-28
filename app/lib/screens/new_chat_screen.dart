@@ -34,7 +34,7 @@ class _NewChatScreenState extends State<NewChatScreen> {
       final user = await state.findUserByPhone(phone);
       if (!mounted) return;
       if (user == null) {
-        setState(() => _error = '$phone is not on SecureChat yet. Ask them to install the app.');
+        setState(() => _error = '$phone is not on AB Chat yet. Ask them to install the app.');
       } else if (user.id == state.me!.id) {
         setState(() => _error = 'That\'s your own number.');
       } else {

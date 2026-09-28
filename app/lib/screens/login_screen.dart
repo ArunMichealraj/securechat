@@ -57,7 +57,7 @@ class _LoginScreenState extends State<LoginScreen> {
             const Icon(Icons.lock_outline, size: 64, color: AppColors.primary),
             const SizedBox(height: 16),
             Text(
-              'Welcome to SecureChat',
+              'Welcome to AB Chat',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: AppColors.primary),
             ),

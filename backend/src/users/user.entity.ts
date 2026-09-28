@@ -12,7 +12,7 @@ export class User {
   @Column({ default: '' })
   name: string;
 
-  @Column({ default: 'Hey there! I am using SecureChat.' })
+  @Column({ default: 'Hey there! I am using AB Chat.' })
   about: string;
 
   @Column({ type: TIMESTAMP, nullable: true })

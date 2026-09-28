@@ -3,7 +3,7 @@
     <!-- usesCleartextTraffic lets the app reach the dev server over http://<PC IP>:3000.
          Remove it once the server is behind HTTPS. -->
     <application
-        android:label="SecureChat"
+        android:label="AB Chat"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:usesCleartextTraffic="true">

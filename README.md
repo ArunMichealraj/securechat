@@ -1,4 +1,4 @@
-# SecureChat
+# AB Chat
 
 WhatsApp-style chat app. Flutter (Android / iOS) + NestJS + Socket.IO.
 

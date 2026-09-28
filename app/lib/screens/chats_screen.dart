@@ -24,7 +24,7 @@ class ChatsScreen extends StatelessWidget {
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('SecureChat'),
+            const Text('AB Chat'),
             if (!state.connected) const Text('Connecting…', style: TextStyle(fontSize: 12)),
           ],
         ),
