@@ -56,10 +56,30 @@ async function logo({ bg, scale = 1 }) {
   // iOS / store icon: no transparency allowed.
   await (await logo({ bg: '#FFFFFF' })).toFile(out('icon-ios.png'));
   // Android adaptive icon foreground: shrink into the 66% safe zone.
-  const fg = await (await logo({})).resize(640, 640).toBuffer();
+  const fg = await sharp(await (await logo({})).toBuffer()).resize(640, 640).toBuffer();
   await sharp({ create: { width: SIZE, height: SIZE, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
     .composite([{ input: fg, left: 192, top: 192 }])
     .png()
     .toFile(out('icon-foreground.png'));
+  // Link-preview image (WhatsApp, Teams, Facebook...): 1200x630, logo + name on blue.
+  const preview = await sharp(await (await logo({})).toBuffer()).resize(360, 360).toBuffer();
+  const card = `
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2F8CFF"/>
+      <stop offset="1" stop-color="#1557B8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="290" cy="315" r="215" fill="#FFFFFF"/>
+  <text x="560" y="300" font-family="Segoe UI, Arial, sans-serif" font-size="110" font-weight="700" fill="#FFFFFF">AB Chat</text>
+  <text x="564" y="380" font-family="Segoe UI, Arial, sans-serif" font-size="42" fill="#DCEBFF">Private messaging for everyone</text>
+</svg>`;
+  await sharp(Buffer.from(card))
+    .composite([{ input: preview, left: 110, top: 135 }])
+    .png()
+    .toFile(path.join(here, '..', 'web', 'og-image.png'));
+
   console.log('logo written');
 })();
