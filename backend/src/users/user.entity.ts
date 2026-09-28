@@ -1,6 +1,8 @@
 import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { TIMESTAMP } from '../config';
 
+export const DEFAULT_ABOUT = 'Hey there! I am using AB Chat.';
+
 @Entity('users')
 export class User {
   @PrimaryGeneratedColumn('uuid')
@@ -12,7 +14,7 @@ export class User {
   @Column({ default: '' })
   name: string;
 
-  @Column({ default: 'Hey there! I am using AB Chat.' })
+  @Column({ default: DEFAULT_ABOUT })
   about: string;
 
   @Column({ type: TIMESTAMP, nullable: true })
