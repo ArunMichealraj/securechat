@@ -48,7 +48,8 @@ class AppState extends ChangeNotifier {
 
   Future<void> init() async {
     final stored = await _store.load();
-    if (stored.serverUrl != null) serverUrl = stored.serverUrl!;
+    // Release builds always use the hosted server; a saved address is only honoured while developing.
+    if (kDebugMode && stored.serverUrl != null) serverUrl = stored.serverUrl!;
     _token = stored.token;
     me = stored.user;
     if (_token == null) {

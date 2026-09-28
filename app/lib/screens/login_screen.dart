@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,7 +39,11 @@ class _LoginScreenState extends State<LoginScreen> {
     try {
       final devCode = await context.read<AppState>().requestOtp(_server.text, phone);
       if (!mounted) return;
-      Navigator.of(context).push(MaterialPageRoute(builder: (_) => OtpScreen(phone: phone, devCode: devCode)));
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => OtpScreen(phone: phone, devCode: devCode),
+        ),
+      );
     } catch (e) {
       setState(() => _error = e.toString());
     } finally {
@@ -76,23 +81,25 @@ class _LoginScreenState extends State<LoginScreen> {
               onSubmitted: (_) => _next(),
             ),
             const SizedBox(height: 16),
-            ExpansionTile(
-              tilePadding: EdgeInsets.zero,
-              title: const Text('Server', style: TextStyle(fontSize: 14)),
-              subtitle: Text(_server.text, style: const TextStyle(fontSize: 12, color: AppColors.muted)),
-              children: [
-                TextField(
-                  controller: _server,
-                  keyboardType: TextInputType.url,
-                  decoration: const InputDecoration(
-                    labelText: 'Server address',
-                    helperText: 'Leave as is, or a local server e.g. http://192.168.0.113:3000',
+            // Only developers need to point the app at another server.
+            if (kDebugMode)
+              ExpansionTile(
+                tilePadding: EdgeInsets.zero,
+                title: const Text('Server', style: TextStyle(fontSize: 14)),
+                subtitle: Text(_server.text, style: const TextStyle(fontSize: 12, color: AppColors.muted)),
+                children: [
+                  TextField(
+                    controller: _server,
+                    keyboardType: TextInputType.url,
+                    decoration: const InputDecoration(
+                      labelText: 'Server address',
+                      helperText: 'Leave as is, or a local server e.g. http://192.168.0.113:3000',
+                    ),
+                    onChanged: (_) => setState(() {}),
                   ),
-                  onChanged: (_) => setState(() {}),
-                ),
-                const SizedBox(height: 8),
-              ],
-            ),
+                  const SizedBox(height: 8),
+                ],
+              ),
             if (_error != null) ...[
               const SizedBox(height: 12),
               Text(_error!, style: const TextStyle(color: Colors.red)),
