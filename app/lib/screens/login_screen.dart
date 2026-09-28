@@ -86,7 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.url,
                   decoration: const InputDecoration(
                     labelText: 'Server address',
-                    helperText: 'Your PC\'s Wi-Fi IP, e.g. http://192.168.0.113:3000',
+                    helperText: 'Leave as is, or a local server e.g. http://192.168.0.113:3000',
                   ),
                   onChanged: (_) => setState(() {}),
                 ),

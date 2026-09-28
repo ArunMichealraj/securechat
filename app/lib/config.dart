@@ -1,5 +1,3 @@
-import 'package:flutter/foundation.dart';
-
-/// Server the login screen suggests. On a real phone this must be your PC's
-/// Wi-Fi IP (phone and PC on the same network). It can be changed on the login screen.
-String get defaultServerUrl => kIsWeb ? 'http://localhost:3000' : 'http://192.168.0.113:3000';
+/// Server the login screen uses by default (hosted on Render). It can be changed on the
+/// login screen, e.g. to `http://YOUR-PC-WIFI-IP:3000` when testing a local server.
+const defaultServerUrl = 'https://securechat-api-qydl.onrender.com';
