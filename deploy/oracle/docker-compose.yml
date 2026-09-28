@@ -1,0 +1,41 @@
+# Always-on server (Oracle Cloud Always Free VM or any Linux VPS).
+# See deploy/oracle/README.md. Start with: docker compose up -d --build
+services:
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: chat
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: chat
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build: ../../backend
+    restart: unless-stopped
+    depends_on: [db]
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET in .env}
+      DB_TYPE: postgres
+      DATABASE_URL: postgres://chat:${POSTGRES_PASSWORD}@db:5432/chat
+      DB_SYNC: "true"
+      EXPOSE_OTP: ${EXPOSE_OTP:-true}
+
+  # HTTPS with an automatic Let's Encrypt certificate.
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    depends_on: [api]
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN:?set DOMAIN in .env}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+
+volumes:
+  pgdata:
+  caddy_data:

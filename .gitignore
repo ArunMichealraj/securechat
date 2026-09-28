@@ -1,0 +1,3 @@
+*.apk
+.env
+deploy/oracle/.env
