@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
           padding: const EdgeInsets.all(24),
           children: [
             const SizedBox(height: 32),
-            const Icon(Icons.lock_outline, size: 64, color: AppColors.primary),
+            Center(child: Image.asset('assets/logo.png', width: 112, height: 112)),
             const SizedBox(height: 16),
             Text(
               'Welcome to AB Chat',
